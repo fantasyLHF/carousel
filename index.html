@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 741px;
+            height: 343px;
+            margin: 100px auto;
+        }
+
+        .container::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .tBox {
+            width: 741px;
+            height: 307px;
+            overflow: hidden;
+        }
+
+        .tBox ul {
+            padding: 0;
+            margin: 0;
+            height: 307px;
+            width: 3705px;
+            transition: margin-left 0.5s;
+        }
+
+        .tBox ul li {
+            float: left;
+            height: 307px;
+            width: 741px;
+        }
+
+        .tBox img {
+            width: 741px;
+            height: auto;
+            float: left;
+        }
+
+        .bBox {
+            width: 741px;
+            height: 36px;
+        }
+
+        .bBox ul {
+            display: block;
+            margin: 0;
+            padding: 0;
+            width: 741px;
+            height: 36px;
+        }
+
+        .bBox li {
+            height: 36px;
+            width: 148px;
+            list-style: none;
+            float: left;
+            font-size: 14px;
+            text-align: center;
+            line-height: 36px;
+            background-color: #E3E2E2;
+            color: #424242;
+        }
+
+        .bBox li:last-child {
+            width: 149px;
+        }
+
+        .bBox .changeI {
+            background-color: #fff;
+            color: #AB8E66;
+        }
+
+        .bBox li span {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tBox">
+            <ul>
+                <li><img src="img/1.jpeg" alt=""></li>
+                <li><img src="img/2.jpeg" alt=""></li>
+                <li><img src="img/3.jpeg" alt=""></li>
+                <li><img src="img/4.jpeg" alt=""></li>
+                <li><img src="img/5.jpeg" alt=""></li>
+            </ul>
+        </div>
+        <div class="bBox">
+            <ul>
+                <li class="changeI">全球总决赛通行证</li>
+                <li>峡谷传说2020</li>
+                <li>代号S10</li>
+                <li><span>K/DA</span>音乐零距离之旅</li>
+                <li>电竞漫画加更</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        //获取所有下方li
+        var list = document.querySelectorAll(".bBox ul li");
+        for (let i = 0; i < list.length; i++) {
+            //鼠标移入
+            list[i].onmouseover = function () {
+                //改变颜色
+                for (var j = 0; j < list.length; j++) {
+                    list[j].className = ""
+                }
+                this.className = "changeI";
+                //移动宽度
+                var marginLeft = document.querySelector("img").clientWidth;
+                //获取移动ul
+                var ul = document.querySelector(".tBox ul")
+                ul.style.marginLeft = -marginLeft * i + "px";
+                //清除定时器
+                clearInterval(timer);
+                flag = i;
+                //颜色改变
+
+            }
+            //鼠标移出
+            list[i].onmouseout = function () {
+                // 开启定时器
+                timer = setInterval(change, 2000);
+            }
+        }
+
+        // 记录当前图片
+        var flag = 0;
+        function change() {
+            flag++
+            if (flag > 4) {
+                flag = 0;
+            }
+            //改变颜色
+            for (var j = 0; j < list.length; j++) {
+                list[j].className = ""
+            }
+            list[flag].className = "changeI"
+            //获取移动ul
+            var ul = document.querySelector(".tBox ul");
+            //移动宽度
+            var marginLeft = document.querySelector("img").clientWidth;
+            ul.style.marginLeft = -marginLeft * flag + "px"
+
+        }
+        var timer = setInterval(change, 2000);
+    </script>
+</body>
+
+</html>
